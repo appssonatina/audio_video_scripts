@@ -3,3 +3,13 @@
 # -s framesize (vga -> 640x480) 
 ffmpeg -y -i video.avi -s vga video.mp4
 
+# Generate rgb colors and output to SDL window
+# -f lavfi Format lavfi
+# -i rgbtestsrc Input command received by lavfi
+# -pix_fmt yuv420p - Pixel format to yuv420p
+# -f sdl Example - Output format and name
+ffmpeg -f lavfi -i rgbtestsrc -pix_fmt yuv420p -f sdl Example
+
+# Specify bitrate which affects quality
+# -b:v 12K Bitrate for video
+ffmpeg -y -i example.mp4 -b:v 12K output.mp4
