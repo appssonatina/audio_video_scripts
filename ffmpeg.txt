@@ -1,0 +1,5 @@
+# Simple ffmpeg command invocation
+# -y Overwrite existing file
+# -s framesize (vga -> 640x480) 
+ffmpeg -y -i video.avi -s vga video.mp4
+
