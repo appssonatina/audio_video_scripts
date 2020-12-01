@@ -13,3 +13,14 @@ ffmpeg -f lavfi -i rgbtestsrc -pix_fmt yuv420p -f sdl Example
 # Specify bitrate which affects quality
 # -b:v 12K Bitrate for video
 ffmpeg -y -i example.mp4 -b:v 12K output.mp4
+
+# List formats available for webcam (Video4Linux2)
+ffmpeg -f v4l2 -list_formats all -i /dev/video0
+
+# Filters are applied between input and output
+# -vf transpose=1 Is video filter to rotate the video
+ffplay -f lavfi -i testsrc -vf transpose=1
+
+# Simple example of audiofilter
+# -f pulse -i default Allows grab audio from mic
+ffplay -f pulse -i default -af atempo=0.8
