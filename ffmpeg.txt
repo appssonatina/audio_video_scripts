@@ -14,6 +14,9 @@ ffmpeg -f lavfi -i rgbtestsrc -pix_fmt yuv420p -f sdl Example
 # -b:v 12K Bitrate for video
 ffmpeg -y -i example.mp4 -b:v 12K output.mp4
 
+# Another example to reencode the video with smaller size
+ffmpeg -i output.mkv -c:v libx264rgb -crf 0 -preset veryslow output-smaller.mkv
+
 # List formats available for webcam (Video4Linux2)
 ffmpeg -f v4l2 -list_formats all -i /dev/video0
 
@@ -24,3 +27,9 @@ ffplay -f lavfi -i testsrc -vf transpose=1
 # Simple example of audiofilter
 # -f pulse -i default Allows grab audio from mic
 ffplay -f pulse -i default -af atempo=0.8
+
+# To record the desktop
+# -i track the display (:0.0) and the top left corner (+100,200)
+# the -framerate -crf and -preset options will influence the quality vs size 
+# -preset can take the values: ultrafast, fast, medium, slow and veryslow
+ffmpeg -video_size 1024x768 -framerate 25 -f x11grab -i :0.0+100,200 -c:v libx264rgb -crf 24 -preset ultrafast -f pulse -ac 2 -i default output.mkv
